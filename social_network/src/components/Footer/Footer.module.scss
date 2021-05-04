@@ -1,0 +1,16 @@
+@import "../../common/scss/mixins.scss";
+
+.footer {
+    background-color: antiquewhite;
+    grid-area: footer;
+}
+.link_container {
+    position: relative;
+}
+.link_container a {
+    @include icon_link();
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 75%);
+}

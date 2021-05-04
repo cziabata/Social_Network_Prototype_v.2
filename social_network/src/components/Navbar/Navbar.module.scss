@@ -1,0 +1,11 @@
+@import "./../../common/scss/mixins.scss";
+.navbar {
+    grid-area: navbar;
+    background-color: cadetblue;
+    
+}
+.navbar a {
+    @include icon_link();
+}
+
+

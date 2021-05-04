@@ -1,0 +1,16 @@
+@import "./../../common/scss/mixins.scss";
+.header {
+    grid-area: header;
+    background-color: bisque;
+    position: relative;
+    display: flex;
+    justify-content: space-between 
+}
+.header a {
+    @include icon_link();
+    margin-top: 15px;
+}
+
+
+
+

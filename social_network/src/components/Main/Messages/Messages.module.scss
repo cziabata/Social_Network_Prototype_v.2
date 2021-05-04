@@ -1,0 +1,8 @@
+@import "../../../common/scss/mixins.scss";
+
+.messages {
+    
+}
+.user_avatar {
+    @include user_avatar();
+}
