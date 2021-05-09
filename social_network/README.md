@@ -2,18 +2,17 @@
 
 ## Add new dependencies:
 
-### sass preprocesor (node-sass)
-### material-ui/core
-### material-ui/icons
-
-## Add new CDN links
-
-### Roboto font using Google Web Fonts
-### Material Icon Font Google Web Fonts
+### redux
 
 ## Other
 
-### Delete unnecessary initial files
+### separate app between BLL and UI levels:
+
+#### create redux store
+#### send data to UI components using props
+#### send redux store methods to UI components using props and bind method
+#### realize simple example of subscibe-observer pattern which rerender UI components after any input change
+
 
 
 

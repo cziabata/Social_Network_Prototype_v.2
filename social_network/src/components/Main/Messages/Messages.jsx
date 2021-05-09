@@ -1,24 +1,31 @@
 import React from "react";
 import styles from "./Messages.module.scss";
-import userIcon from "../../../common/img/users.jpg";
+import { Message } from "./Message/Message";
+import { addMessageAC, updateNewMessageBodyAC } from "../../../redux/messagesReducer";
 
-export const Messages = () => {
+export const Messages = (props) => {
+
+    let messageElements = props.state.messages.map( message => {return(<Message id={message.id} 
+                                                                    userName={message.userName} 
+                                                                    messageText={message.messageText} />
+    )});
+
+    let messageInput = React.createRef();
+
+    let addMessage = () => {
+        props.dispatch(addMessageAC());
+    }
+    let updateNewMessageBody = () => {
+        let text = messageInput.current.value;
+        props.dispatch(updateNewMessageBodyAC(text))
+    }
+
     return (
         <div className={styles.messages}>
-           <div>
-                <img src={userIcon} alt="avatar" className={styles.user_avatar}/>
-                <span>My Name</span>
-                <div>Message</div>
-            </div>
+            <div><textarea ref={messageInput} value={props.state.newMessageBody} onChange={updateNewMessageBody}></textarea></div>
+            <button onClick={addMessage}>Send Message</button>
             <div>
-                <img src={userIcon} alt="avatar" className={styles.user_avatar}/>
-                <span>My Name</span>
-                <div>Message</div>
-            </div>
-            <div>
-                <img src={userIcon} alt="avatar" className={styles.user_avatar}/>
-                <span>My Name</span>
-                <div>Message</div>
+                {messageElements}
             </div>
         </div>
     )

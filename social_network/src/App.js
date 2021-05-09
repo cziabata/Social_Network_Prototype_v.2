@@ -6,11 +6,11 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Footer } from "./components/Footer/Footer";
 import styles from "./App.module.scss";
 
-function App() {
+function App(props) {
   return (
     <div className={styles.app}>
       <Header />
-      <Content />
+      <Content state={props.state} dispatch={props.dispatch}/>
       <Navbar />
       <Footer />
     </div>
