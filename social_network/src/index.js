@@ -4,6 +4,7 @@ import "./index.scss";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { store } from "./redux/store";
+import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 
 
@@ -12,7 +13,9 @@ const rerenderEntireTree = (state) => {
   ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App state={state} dispatch={store.dispatch.bind(store)}/>
+      <Provider store={store}>
+        <App state={state} dispatch={store.dispatch.bind(store)}/>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

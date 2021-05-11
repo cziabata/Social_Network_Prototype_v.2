@@ -2,16 +2,15 @@
 
 ## Add new dependencies:
 
-### redux
+### react-redux
 
 ## Other
 
-### separate app between BLL and UI levels:
+### realize provider method to transfer props from BLL to UI:
 
-#### create redux store
-#### send data to UI components using props
-#### send redux store methods to UI components using props and bind method
-#### realize simple example of subscibe-observer pattern which rerender UI components after any input change
+#### use connect function for transfer props from BLL to UI
+#### create basic container components
+#### refactor UI components
 
 
 

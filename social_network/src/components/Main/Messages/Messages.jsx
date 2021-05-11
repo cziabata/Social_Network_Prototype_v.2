@@ -1,28 +1,27 @@
 import React from "react";
 import styles from "./Messages.module.scss";
 import { Message } from "./Message/Message";
-import { addMessageAC, updateNewMessageBodyAC } from "../../../redux/messagesReducer";
 
 export const Messages = (props) => {
 
-    let messageElements = props.state.messages.map( message => {return(<Message id={message.id} 
+    let messageElements = props.messages.map( message => {return(<Message id={message.id} 
                                                                     userName={message.userName} 
-                                                                    messageText={message.messageText} />
+                                                                    messageText={message.messageText}
+                                                                    key={message.id} />
     )});
 
     let messageInput = React.createRef();
 
     let addMessage = () => {
-        props.dispatch(addMessageAC());
+        props.addMessage();
     }
     let updateNewMessageBody = () => {
-        let text = messageInput.current.value;
-        props.dispatch(updateNewMessageBodyAC(text))
+        props.updateNewMessageBody(messageInput.current.value);
     }
 
     return (
         <div className={styles.messages}>
-            <div><textarea ref={messageInput} value={props.state.newMessageBody} onChange={updateNewMessageBody}></textarea></div>
+            <div><textarea ref={messageInput} value={props.newMessageBody} onChange={updateNewMessageBody}></textarea></div>
             <button onClick={addMessage}>Send Message</button>
             <div>
                 {messageElements}
