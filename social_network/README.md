@@ -2,15 +2,17 @@
 
 ## Add new dependencies:
 
-### react-redux
+### axios
 
-## Other
+## Other:
 
-### realize provider method to transfer props from BLL to UI:
+### create class component for users page
+### create reducer for users page
+### made first http get request using axios
+### get users from server 
 
-#### use connect function for transfer props from BLL to UI
-#### create basic container components
-#### refactor UI components
+
+
 
 
 
