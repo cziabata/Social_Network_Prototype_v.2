@@ -5,6 +5,7 @@
 }
 .user_avatar {
     @include user_avatar();
+    cursor: pointer;
 }
 .paginationWrapper {
     margin: 5px;

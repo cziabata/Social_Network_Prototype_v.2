@@ -1,12 +1,7 @@
 import React from "react";
 import styles from "./Profile.module.scss";
-import { Post } from "./Posts/Posts";
 
 export const Profile = (props) => {
-
-    let postElements = props.posts.map(posts => { return (<Post userName={posts.userName} postMessage={posts.postMessage} 
-                                                                id={posts.id}
-                                                                key={posts.id}/>)});
     
     let postButton = React.createRef();
 
@@ -15,7 +10,7 @@ export const Profile = (props) => {
     };
 
     let updateNewPostMessage = () => {
-        props.updateNewPostMessage(postButton.current.value);
+        props.updateNewPostText(postButton.current.value);
     };
 
     return (
@@ -26,7 +21,7 @@ export const Profile = (props) => {
                 <button  onClick={addPost}>Add Post</button>
             </div>
             <div>
-                {postElements}
+                {props.postElements}
             </div>
         </div>
     )

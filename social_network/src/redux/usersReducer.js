@@ -4,6 +4,7 @@ const SET_USERS = "SET_USERS";
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_TOGGLE_IS_FETCHING = "SET_TOGGLE_IS_FETCHING";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
 
 let initialState = {
     users: [],
@@ -11,6 +12,7 @@ let initialState = {
     pageSize: 5,
     currentPage: 1,
     isFetching: false,
+    userProfile: null
 }
  let usersReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -54,6 +56,11 @@ let initialState = {
                 ...state,
                 isFetching: action.isFetching
             }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                userProfile: action.userProfile
+            }
         default:
             return state
     }
@@ -65,5 +72,6 @@ export const setUsers = (users) => ({type: SET_USERS, users});
 export const setCurrentPage = (currentPage) => ({type: SET_CURRENT_PAGE, currentPage});
 export const setTotalUsersCount = (totalUsersCount) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount});
 export const setIsFetching = (isFetching) => ({type: SET_TOGGLE_IS_FETCHING, isFetching});
+export const setUserProfile = (userProfile) => ({type: SET_USER_PROFILE, userProfile})
 
 export default usersReducer;

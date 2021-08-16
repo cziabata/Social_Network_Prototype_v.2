@@ -5,6 +5,7 @@ import React from "react";
 import styles from "./Users.module.scss";
 import userIcon from "./../../../common/img/users.jpg";
 import * as axios from "axios";
+import { NavLink } from "react-router-dom";
 
 export class UsersContainer extends React.Component {
 
@@ -34,7 +35,11 @@ export class UsersContainer extends React.Component {
 
         let usersElements = this.props.users.map( user => (
             <div>
-                <img src={user.photos.small != null ? user.photos.small : userIcon} alt="avatar" className={styles.user_avatar}/>
+                <div>
+                    <NavLink to={"/profile/" + user.id}>
+                        <img src={user.photos.small != null ? user.photos.small : userIcon} alt="avatar" className={styles.user_avatar}/>
+                    </NavLink>
+                </div>
                 <span>{user.name}</span>
                 <div>{user.status != null ? user.status : "Status empty"}</div>
                 <div>User Information:</div>

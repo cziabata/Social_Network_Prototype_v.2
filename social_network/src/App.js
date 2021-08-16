@@ -10,7 +10,7 @@ function App(props) {
   return (
     <div className={styles.app}>
       <Header />
-      <Content state={props.state} dispatch={props.dispatch}/>
+      <Content />
       <Navbar />
       <Footer />
     </div>
