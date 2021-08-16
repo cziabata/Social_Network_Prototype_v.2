@@ -11,7 +11,12 @@ export class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.setIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {
+            withCredentials: true,
+            headers: {
+                "API-KEY": "6847b8b0-6480-41e7-80b9-70115535fc82"
+            }
+        })
              .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -22,7 +27,12 @@ export class UsersContainer extends React.Component {
     onPageChanged = (pageNumber) => {
         this.props.setIsFetching(true);
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`,{
+            withCredentials: true,
+            headers: {
+                "API-KEY": "6847b8b0-6480-41e7-80b9-70115535fc82"
+            }
+        })
              .then(response => {
                 this.props.setIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -45,8 +55,34 @@ export class UsersContainer extends React.Component {
                 <div>User Information:</div>
                 <div>{`User id is: ${user.id}`}</div>
                 <div>{user.followed 
-                    ? <button onClick={ () => {this.props.unfollow(user.id)}}>Unfollow</button> 
-                    : <button onClick={() => {this.props.follow(user.id)}}>Follow</button>}</div>
+                    ? <button onClick={ () => {
+                        axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`, {
+                            withCredentials: true,
+                            headers: {
+                                "API-KEY": "6847b8b0-6480-41e7-80b9-70115535fc82"
+                            }
+                        })
+                             .then(response => {
+                                if(response.data.resultCode === 0) {
+                                    this.props.unfollow(user.id)
+                                }
+                            }
+                        )
+                        }}>Unfollow</button> 
+                    : <button onClick={() => {
+                        axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`,{}, {
+                            withCredentials: true,
+                            headers: {
+                                "API-KEY": "6847b8b0-6480-41e7-80b9-70115535fc82"
+                            }
+                        })
+                             .then(response => {
+                                if(response.data.resultCode === 0) {
+                                    this.props.follow(user.id)
+                                }
+                            }
+                        )
+                    }}>Follow</button>}</div>
             </div>
         ))
         
