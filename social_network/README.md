@@ -1,6 +1,7 @@
 # Changing in this commit:
 
-### realize follow/unfollow interaction for requested user
+### create DAL - data acces layer 
+### create instance for http requests
 
 
 

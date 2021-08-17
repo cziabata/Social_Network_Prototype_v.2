@@ -6,37 +6,26 @@ import styles from "./Users.module.scss";
 import userIcon from "./../../../common/img/users.jpg";
 import * as axios from "axios";
 import { NavLink } from "react-router-dom";
+import { usersAPI } from "../../../api/api";
 
 export class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.setIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "6847b8b0-6480-41e7-80b9-70115535fc82"
-            }
-        })
-             .then(response => {
+        usersAPI.getUsers(this.props.pageSize, this.props.currentPage).then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             }
         )
     }
     onPageChanged = (pageNumber) => {
         this.props.setIsFetching(true);
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${pageNumber}`,{
-            withCredentials: true,
-            headers: {
-                "API-KEY": "6847b8b0-6480-41e7-80b9-70115535fc82"
-            }
-        })
-             .then(response => {
+        usersAPI.getUsers(this.props.pageSize, pageNumber).then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
             }
         )
     }
