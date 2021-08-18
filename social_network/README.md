@@ -1,7 +1,7 @@
 # Changing in this commit:
 
-### create DAL - data acces layer 
-### create instance for http requests
+### add disable on buttons while http request in progress 
+### use some() and filter() methods
 
 
 

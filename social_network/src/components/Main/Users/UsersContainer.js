@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
-import { follow, setCurrentPage, setUsers, unfollow, setTotalUsersCount, setIsFetching } from "../../../redux/usersReducer";
+import { follow, setCurrentPage, setUsers, unfollow, setTotalUsersCount, setIsFetching,
+         setFollowingProgress } from "../../../redux/usersReducer";
 import { Users } from "./Users";
 import React from "react";
 import styles from "./Users.module.scss";
@@ -44,7 +45,8 @@ export class UsersContainer extends React.Component {
                 <div>User Information:</div>
                 <div>{`User id is: ${user.id}`}</div>
                 <div>{user.followed 
-                    ? <button onClick={ () => {
+                    ? <button disabled={this.props.isFollowingProgress.some(id => id === user.id)} onClick={ () => {
+                        this.props.setFollowingProgress(true, user.id);
                         axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`, {
                             withCredentials: true,
                             headers: {
@@ -55,10 +57,12 @@ export class UsersContainer extends React.Component {
                                 if(response.data.resultCode === 0) {
                                     this.props.unfollow(user.id)
                                 }
+                                this.props.setFollowingProgress(false, user.id);
                             }
                         )
                         }}>Unfollow</button> 
-                    : <button onClick={() => {
+                    : <button disabled={this.props.isFollowingProgress.some(id => id === user.id)} onClick={() => {
+                        this.props.setFollowingProgress(true, user.id);
                         axios.post(`https://social-network.samuraijs.com/api/1.0//follow/${user.id}`,{}, {
                             withCredentials: true,
                             headers: {
@@ -69,8 +73,9 @@ export class UsersContainer extends React.Component {
                                 if(response.data.resultCode === 0) {
                                     this.props.follow(user.id)
                                 }
+                                this.props.setFollowingProgress(false, user.id);
                             }
-                        )
+                        )    
                     }}>Follow</button>}</div>
             </div>
         ))
@@ -102,6 +107,7 @@ let mapStateToProps = (state) => {
         pageSize: state.usersReducer.pageSize,
         currentPage: state.usersReducer.currentPage,
         isFetching: state.usersReducer.isFetching,
+        isFollowingProgress: state.usersReducer.isFollowingProgress
     }
 }
 
@@ -111,5 +117,6 @@ export default connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
-    setIsFetching
+    setIsFetching,
+    setFollowingProgress
 })(UsersContainer)
