@@ -7,7 +7,7 @@ import UserProfileContainer from "./Users/UserProfile/UserProfileContainer";
 import UsersContainer from "./Users/UsersContainer";
 
 
-export const Content = (props) => {
+export const Content = () => {
     
     return(
         <main className={styles.content}>

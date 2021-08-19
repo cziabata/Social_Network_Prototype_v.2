@@ -1,9 +1,11 @@
 # Changing in this commit:
 
-## add new dependencies:
-### - redux-thunk
-## create thunk functions for Users page
-## extend DAL (add new methods in Users API)
+## switch all http requests on thunk functions
+## create thunk functions for Header page
+## add thunk middleware for store
+## extend DAL:
+### - add new methods in Users API,
+### - create Auth API
 
 
 

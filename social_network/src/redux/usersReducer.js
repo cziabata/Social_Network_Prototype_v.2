@@ -133,5 +133,14 @@ export const followUser = (userId) => {
       )    
     }
 }
+export const chooseUserProfile = (userId) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true));
+        usersAPI.getUserProfile(userId).then( response => {
+            dispatch(setIsFetching(false));
+            dispatch(setUserProfile(response.data))
+        })
+    }
+}
 
 export default usersReducer;
