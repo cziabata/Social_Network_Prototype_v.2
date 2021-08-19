@@ -1,7 +1,9 @@
 # Changing in this commit:
 
-### add disable on buttons while http request in progress 
-### use some() and filter() methods
+## add new dependencies:
+### - redux-thunk
+## create thunk functions for Users page
+## extend DAL (add new methods in Users API)
 
 
 
