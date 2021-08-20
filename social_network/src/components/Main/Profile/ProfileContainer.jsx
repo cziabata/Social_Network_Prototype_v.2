@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Profile } from "./Profile";
 import { addPost, updateNewPostText } from "../../../redux/profileReducer";
 import { Post } from "./Posts/Posts";
-import { Redirect } from "react-router-dom";
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 let mapStateToProps = (state) => {
     return {
@@ -29,6 +29,4 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-export default connect(mapStateToProps, {addPost, updateNewPostText})(AuthRedirectComponent)
+export default compose(connect(mapStateToProps, {addPost, updateNewPostText}),withAuthRedirect)(ProfileContainer);
