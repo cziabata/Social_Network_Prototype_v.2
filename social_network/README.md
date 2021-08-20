@@ -1,6 +1,6 @@
 # Changing in this commit:
 
-## add Redirect function to login page if user is not authorized
+## create HOC function which create container component with redirect logic for any UI component
 
 
 

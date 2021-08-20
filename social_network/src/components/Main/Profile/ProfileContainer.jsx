@@ -4,19 +4,17 @@ import { Profile } from "./Profile";
 import { addPost, updateNewPostText } from "../../../redux/profileReducer";
 import { Post } from "./Posts/Posts";
 import { Redirect } from "react-router-dom";
+import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 
 let mapStateToProps = (state) => {
     return {
         posts: state.profileReducer.posts,
         newPostText: state.profileReducer.newPostText,
-        isAuth: state.authReducer.isAuth,
     }
 }
 
 class ProfileContainer extends React.Component {
     render() {
-
-        if(!this.props.isAuth) {return <Redirect to="/login" />}
 
         let postElements = this.props.posts.map(posts => { return (<Post userName={posts.userName} postMessage={posts.postMessage} 
             id={posts.id}
@@ -31,4 +29,6 @@ class ProfileContainer extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, {addPost, updateNewPostText})(ProfileContainer)
+let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+
+export default connect(mapStateToProps, {addPost, updateNewPostText})(AuthRedirectComponent)

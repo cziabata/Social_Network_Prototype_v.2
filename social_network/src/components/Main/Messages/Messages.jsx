@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./Messages.module.scss";
 import { Message } from "./Message/Message";
-import { Redirect } from "react-router-dom";
 
 export const Messages = (props) => {
 
@@ -19,7 +18,6 @@ export const Messages = (props) => {
     let updateNewMessageBody = () => {
         props.updateNewMessageBody(messageInput.current.value);
     }
-    if(!props.isAuth) { return <Redirect to="/login" />}
     return (
         <div className={styles.messages}>
             <div><textarea ref={messageInput} value={props.newMessageBody} onChange={updateNewMessageBody}></textarea></div>

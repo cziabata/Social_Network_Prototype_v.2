@@ -12,7 +12,7 @@ const SET_IS_FOLLOWING_PROGRESS = "SET_IS_FOLLOWING_PROGRESS";
 let initialState = {
     users: [],
     totalUsersCount: 0,
-    pageSize: 5,
+    pageSize: 20,
     currentPage: 1,
     isFetching: false,
     userProfile: null,
