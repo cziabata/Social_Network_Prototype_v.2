@@ -1,6 +1,6 @@
 # Changing in this commit:
 
-## refactor HOC hell using compose() function from redux library
+## create status span with simple edit it function using local state in class component
 
 
 
