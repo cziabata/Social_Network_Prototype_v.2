@@ -1,6 +1,6 @@
 # Changing in this commit:
 
-## create status span with simple edit it function using local state in class component
+## create simple profile API which put and get user status on/from server
 
 
 

@@ -16,7 +16,7 @@ export const Profile = (props) => {
 
     return (
         <div className={styles.profile}>
-            <ProfileStatus status={"status"} />
+            <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             <div>avatar + description</div>
             <div>
                 <div><textarea ref={postButton} onChange={updateNewPostMessage} value={props.newPostText}></textarea></div>
