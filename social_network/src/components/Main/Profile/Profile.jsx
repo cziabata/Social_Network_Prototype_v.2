@@ -1,17 +1,25 @@
 import React from "react";
+import { Field, reduxForm } from "redux-form";
 import styles from "./Profile.module.scss";
 import { ProfileStatus } from "./ProfileStatus";
 
+let AddNewPostForm = (props) => {
+    const {handleSubmit} = props;
+    return (
+        <form onSubmit={handleSubmit}>
+            <div>
+                <Field placeholder={"Enter your message"} name={"newMessageBody"} component={"textarea"}/>
+            </div>
+            <button>Add Post</button>
+        </form>
+    )
+}
+let AddNewPostReduxForm = reduxForm({form: "addNewPost"})(AddNewPostForm);
+
 export const Profile = (props) => {
-    
-    let postButton = React.createRef();
 
-    let addPost = () => {
-        props.addPost();
-    };
-
-    let updateNewPostMessage = () => {
-        props.updateNewPostText(postButton.current.value);
+    let addPost = (values) => {
+        props.addPost(values.newMessageBody);
     };
 
     return (
@@ -19,8 +27,7 @@ export const Profile = (props) => {
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             <div>avatar + description</div>
             <div>
-                <div><textarea ref={postButton} onChange={updateNewPostMessage} value={props.newPostText}></textarea></div>
-                <button  onClick={addPost}>Add Post</button>
+                <AddNewPostReduxForm onSubmit={addPost}/>
             </div>
             <div>
                 {props.postElements}
