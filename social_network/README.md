@@ -1,3 +1,3 @@
 # Changing in this commit:
 
-## add validation on all forms in app
+## added an opportunity to login on server using login page in app

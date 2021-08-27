@@ -10,7 +10,10 @@ export const Header = (props) => {
                 <div className={styles.link_wrapper}><Icon>facebook</Icon><span>Social_Network_Prototype v.2</span></div>
              </NavLink>
              <NavLink to="/login">
-                <div className={styles.link_wrapper}>{ props.isAuth ?  <div><Icon>login</Icon><span>{props.login}</span></div> 
+                <div className={styles.link_wrapper}>{ props.isAuth ?  <div>
+                                                                             <Icon>login</Icon><span>{props.login}</span>
+                                                                             <button onClick={props.logout}>Logout</button>
+                                                                       </div> 
                                                                     :  <div><Icon>login</Icon><span>Login</span></div>}</div>
              </NavLink>
         </header>

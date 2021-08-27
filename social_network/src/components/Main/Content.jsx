@@ -5,7 +5,7 @@ import ProfileContainer from "./Profile/ProfileContainer";
 import MessagesContainer from "./Messages/MessagesContainer";
 import UserProfileContainer from "./Users/UserProfile/UserProfileContainer";
 import UsersContainer from "./Users/UsersContainer";
-import { Login } from "../Login/Login";
+import Login from "../Login/Login";
 
 
 export const Content = () => {
