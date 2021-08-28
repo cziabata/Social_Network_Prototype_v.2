@@ -1,3 +1,4 @@
 # Changing in this commit:
 
-## add handler for common errors in login form using stopSubmit() function
+## converted App component to class component
+## added initialize logic for all app
