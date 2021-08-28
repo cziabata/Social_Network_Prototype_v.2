@@ -10,12 +10,14 @@ let mapStateToProps = (state) => {
     return {
         posts: state.profileReducer.posts,
         status: state.profileReducer.status,
+        authorizedUserId: state.authReducer.id,
+        isAuth: state.authReducer.isAuth
     }
 }
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        this.props.getStatus(9786)
+        this.props.getStatus(this.props.authorizedUserId)
     }
     render() {
 

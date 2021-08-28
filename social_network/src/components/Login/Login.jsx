@@ -5,6 +5,7 @@ import { Input } from "../common/FormControls/FormControls";
 import { connect } from "react-redux";
 import { login } from "../../redux/authReducer";
 import { Redirect } from "react-router-dom";
+import classes from "../common/FormControls/FormControls.module.css";
 
 let maxLegth30 = maxLenghtCreator(30);
 let LoginForm = props => {
@@ -19,6 +20,7 @@ let LoginForm = props => {
         <div>
             <Field name="rememberMe" component="input" type="checkbox" />
         </div>
+        {props.error && <div className={classes.commonError}>{props.error}</div>}
         <button type="submit">Submit</button>
     </form>
   }
