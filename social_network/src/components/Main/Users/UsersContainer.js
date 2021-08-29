@@ -5,6 +5,7 @@ import React from "react";
 import styles from "./Users.module.scss";
 import userIcon from "./../../../common/img/users.jpg";
 import { NavLink } from "react-router-dom";
+import { getTotalUsersCount, getAllUsers, getPageSize, getCurrentPage, getIsFetching, getIsFollowingProgress } from "../../../redux/selectors/users-selectors";
 
 export class UsersContainer extends React.Component {
 
@@ -54,12 +55,12 @@ export class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersReducer.users,
-        totalUsersCount: state.usersReducer.totalUsersCount,
-        pageSize: state.usersReducer.pageSize,
-        currentPage: state.usersReducer.currentPage,
-        isFetching: state.usersReducer.isFetching,
-        isFollowingProgress: state.usersReducer.isFollowingProgress
+        users: getAllUsers(state),
+        totalUsersCount: getTotalUsersCount(state),
+        pageSize: getPageSize(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        isFollowingProgress: getIsFollowingProgress(state)
     }
 }
 
