@@ -1,46 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
-export class ProfileStatus extends React.Component {
-    
-    state = {
-        editMode: false,
-        status: this.props.status
+export const ProfileStatus = (props) => {
+    let [editeMode, setEditeMode] = useState(false);
+    let [status, setStatus] = useState(props.status);
+    let activateEditeMode = () => {
+        setEditeMode(true)
     }
-    activateEditeMode = () => {
-        this.setState({
-            editMode: true
-        })
+    let deactivateEditeMode = () => {
+        setEditeMode(false);
+        props.updateStatus(status);
     }
-    deactivateEditeMode = () => {
-        this.setState({
-            editMode: false
-        });
-        this.props.updateStatus(this.state.status)
+    let onStatusChange = (event) => {
+        setStatus(event.currentTarget.value)
     }
-    onStatusChange = (event) => {
-        this.setState({
-            status: event.currentTarget.value
-        })
-    }
-    componentDidUpdate(prevProps, prevState) {
-        if(prevProps.status !== this.props.status) {
-            this.setState({state: this.props.status})
-        }
-    }
-
-    render(){
-        return(
+    return(
             <>
                 {
-                    this.state.editMode 
-                    ? <div><input onChange={this.onStatusChange} 
+                    editeMode ? <div><input onChange={onStatusChange} 
                                   autoFocus={true} 
-                                  onBlur={this.deactivateEditeMode} 
-                                  value={this.state.status} />
+                                  onBlur={deactivateEditeMode} 
+                                  value={status} />
                       </div> 
-                    : <div><span onDoubleClick={this.activateEditeMode}>{this.props.status || "---"}</span></div>
+                    : <div><span onDoubleClick={activateEditeMode}>{status || "---"}</span></div>
                 }
             </>
-        )
-    }
+    )
 }

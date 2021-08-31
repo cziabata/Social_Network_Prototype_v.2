@@ -1,4 +1,4 @@
 # Changing in this commit:
 
 ## converted App component to class component
-## add selector functions in UsersContainer
+## refactor Status class component to functional component with hook useState
