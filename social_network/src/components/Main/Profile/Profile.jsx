@@ -23,8 +23,8 @@ let AddNewPostForm = (props) => {
 }
 let AddNewPostReduxForm = reduxForm({form: "addNewPost"})(AddNewPostForm);
 
-export const Profile = (props) => {
-
+export const Profile = React.memo((props) => {
+    console.log("profile")
     let addPost = (values) => {
         props.addPost(values.newMessageBody);
     };
@@ -41,4 +41,4 @@ export const Profile = (props) => {
             </div>
         </div>
     )
-}
+})

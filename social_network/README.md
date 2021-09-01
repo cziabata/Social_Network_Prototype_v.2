@@ -1,3 +1,3 @@
 # Changing in this commit:
 
-## add new hook (useEffect()) in Status component
+## add React.memo in Profile component for rerender optimization
