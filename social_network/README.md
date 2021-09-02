@@ -1,3 +1,4 @@
 # Changing in this commit:
 
-## add React.memo in Profile component for rerender optimization
+## write simple module tests on profileReducer
+## write new business logic using test driving development method
