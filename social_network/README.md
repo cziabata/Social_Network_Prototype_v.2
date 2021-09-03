@@ -1,3 +1,3 @@
 # Changing in this commit:
 
-## create new common component - Paginator
+## connect Redux DevTools Extension
