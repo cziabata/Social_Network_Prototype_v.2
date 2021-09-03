@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "./Users.module.scss";
-import preloader from "../../../common/img/preloader.svg";
+import { Preloader } from "../../common/Preloader/Preloader";
+import { Paginator } from "../../common/Paginator/Paginator";
 
     export const Users = (props) => {
         return (
             <>
-                <div>{props.isFetching ? <img src={preloader} alt="preloader"/> : null}</div>
-                <div className={styles.paginationWrapper}>
-                    { props.pages.map( page => <span className={props.currentPage === page && styles.currentPage} 
-                                                     onClick={ () => {props.onPageChanged(page)} }>{page}</span> ) }
-                </div>
+                <div>{props.isFetching ? <Preloader /> : null}</div>
+                <Paginator totalUsersCount={props.totalUsersCount} 
+                           pageSize={props.pageSize}
+                           onPageChanged={props.onPageChanged}
+                           currentPage={props.currentPage}/>
                 <div className={styles.users}>
                     {props.usersElements}
                 </div>

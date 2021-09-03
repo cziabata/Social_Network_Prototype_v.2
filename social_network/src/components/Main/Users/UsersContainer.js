@@ -34,20 +34,15 @@ export class UsersContainer extends React.Component {
                         this.props.followUser(user.id)} }>Follow</button>}</div>
             </div>
         ))
-        
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-        let pages = [];
-        for(let i=1; i<=pagesCount; i++) {
-            pages.push(i)
-        }
 
         return (
             <>
                 <Users usersElements={usersElements} 
-                       pages={pages} 
                        onPageChanged={this.onPageChanged} 
                        isFetching={this.props.isFetching}
-                       currentPage={this.props.currentPage}/>
+                       currentPage={this.props.currentPage}
+                       totalUsersCount={this.props.totalUsersCount}
+                       pageSize={this.props.pageSize}/>
             </>
         )
     }

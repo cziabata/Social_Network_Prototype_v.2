@@ -1,0 +1,18 @@
+.paginationWrapper {
+    margin: 5px;
+}
+.paginationWrapper span {
+    padding: 3px;
+    margin: 1px;
+    background-color: beige;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+    &:hover {
+        background-color: bisque;
+        color: brown;
+    }
+}
+.currentPage {
+    font-weight: bold;
+}
