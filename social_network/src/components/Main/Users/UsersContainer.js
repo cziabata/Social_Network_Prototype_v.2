@@ -5,7 +5,8 @@ import React from "react";
 import styles from "./Users.module.scss";
 import userIcon from "./../../../common/img/users.jpg";
 import { NavLink } from "react-router-dom";
-import { getTotalUsersCount, getAllUsers, getPageSize, getCurrentPage, getIsFetching, getIsFollowingProgress } from "../../../redux/selectors/users-selectors";
+import { getTotalUsersCount, getAllUsers, getPageSize, getCurrentPage, getIsFetching, getIsFollowingProgress,
+         getPortionSize } from "../../../redux/selectors/users-selectors";
 
 export class UsersContainer extends React.Component {
 
@@ -42,7 +43,8 @@ export class UsersContainer extends React.Component {
                        isFetching={this.props.isFetching}
                        currentPage={this.props.currentPage}
                        totalUsersCount={this.props.totalUsersCount}
-                       pageSize={this.props.pageSize}/>
+                       pageSize={this.props.pageSize}
+                       portionSize={this.props.portionSize}/>
             </>
         )
     }
@@ -55,7 +57,8 @@ let mapStateToProps = (state) => {
         pageSize: getPageSize(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        isFollowingProgress: getIsFollowingProgress(state)
+        isFollowingProgress: getIsFollowingProgress(state),
+        portionSize: getPortionSize(state),
     }
 }
 

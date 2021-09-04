@@ -1,3 +1,3 @@
 # Changing in this commit:
 
-## connect Redux DevTools Extension
+## refactor Paginator component (add arrows to switch between portion of pages)
