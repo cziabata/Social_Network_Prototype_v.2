@@ -1,3 +1,4 @@
 # Changing in this commit:
 
-## start to deploy app at GitHubPages
+## add HashRouter to correct view pages of app in GitHub Pages
+
