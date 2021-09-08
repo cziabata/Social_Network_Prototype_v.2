@@ -3,6 +3,7 @@ import { profileAPI } from "../api/api";
 const ADD_POST = "ADD_POST";
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
+const SET_PROFILE_PHOHTO = "SET_PROFILE_PHOHTO";
 
 let initialState = {
   posts: [
@@ -11,6 +12,7 @@ let initialState = {
     { id: 3, userName: "USER 3", postMessage: "Post Message 333" },
   ],
   status: "",
+  photos: null,
 };
 
 let profileReducer = (state = initialState, action) => {
@@ -27,6 +29,11 @@ let profileReducer = (state = initialState, action) => {
             }
         case DELETE_POST:
             return { ...state, posts: state.posts.filter( post => post.id !== action.postId)}
+        case SET_PROFILE_PHOHTO:
+            return {
+                ...state,
+                photos: action.photos
+            }
         default:
             return state;
     }
@@ -35,6 +42,7 @@ let profileReducer = (state = initialState, action) => {
 export const addPost = (newMessageBody) => ({type: ADD_POST, newMessageBody});
 export const setStatus = (status) => ({type: SET_STATUS, status});
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
+export const setProfilePhoto = (photos) => ({type: SET_PROFILE_PHOHTO, photos});
 
 export const getStatus = (userId) => async (dispatch) => {
     let response = await profileAPI.getStatus(userId); 
@@ -44,6 +52,12 @@ export const updateStatus = (status) => async (dispatch) => {
     let response = await profileAPI.updateStatus(status);
     if(response.data.resultCode === 0) {
         dispatch(setStatus(status))
+    }
+}
+export const updateProfilePhoto = (photo) => async (dispatch) => {
+    let response = await profileAPI.updatePhoto(photo);
+    if(response.data.resultCode === 0) {
+        dispatch(setProfilePhoto(response.data.data.photos))
     }
 }
 
