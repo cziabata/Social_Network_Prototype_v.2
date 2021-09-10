@@ -1,9 +1,10 @@
-import { profileAPI } from "../api/api";
+import { profileAPI, usersAPI } from "../api/api";
 
 const ADD_POST = "ADD_POST";
 const SET_STATUS = "SET_STATUS";
 const DELETE_POST = "DELETE_POST";
-const SET_PROFILE_PHOHTO = "SET_PROFILE_PHOHTO";
+const SET_PROFILE = "SET_PROFILE";
+const SET_PROFILE_PHOTOS = "SET_PROFILE_PHOTOS";
 
 let initialState = {
   posts: [
@@ -12,7 +13,7 @@ let initialState = {
     { id: 3, userName: "USER 3", postMessage: "Post Message 333" },
   ],
   status: "",
-  photos: null,
+  profile: null,
 };
 
 let profileReducer = (state = initialState, action) => {
@@ -29,10 +30,15 @@ let profileReducer = (state = initialState, action) => {
             }
         case DELETE_POST:
             return { ...state, posts: state.posts.filter( post => post.id !== action.postId)}
-        case SET_PROFILE_PHOHTO:
+        case SET_PROFILE:
             return {
                 ...state,
-                photos: action.photos
+                profile: action.profile
+            }
+        case SET_PROFILE_PHOTOS:
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.photos}
             }
         default:
             return state;
@@ -40,9 +46,10 @@ let profileReducer = (state = initialState, action) => {
 }
 
 export const addPost = (newMessageBody) => ({type: ADD_POST, newMessageBody});
-export const setStatus = (status) => ({type: SET_STATUS, status});
+const setStatus = (status) => ({type: SET_STATUS, status});
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
-export const setProfilePhoto = (photos) => ({type: SET_PROFILE_PHOHTO, photos});
+const setProfile = (profile) => ({type: SET_PROFILE, profile});
+const setProfilePhoto = (photos) => ({type: SET_PROFILE_PHOTOS, photos})
 
 export const getStatus = (userId) => async (dispatch) => {
     let response = await profileAPI.getStatus(userId); 
@@ -59,6 +66,10 @@ export const updateProfilePhoto = (photo) => async (dispatch) => {
     if(response.data.resultCode === 0) {
         dispatch(setProfilePhoto(response.data.data.photos))
     }
+}
+export const chooseProfile = (userId) => async (dispatch) => {
+    let response = await usersAPI.getUserProfile(userId);
+    dispatch(setProfile(response.data))
 }
 
 export default profileReducer;

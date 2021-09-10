@@ -1,4 +1,4 @@
 # Changing in this commit:
 
-## add business logic to upload image on server
+## add changing user photo and upload it on server
 

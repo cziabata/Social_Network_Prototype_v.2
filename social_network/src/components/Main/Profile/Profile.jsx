@@ -4,7 +4,7 @@ import { required, maxLenghtCreator } from "../../../common/utils/validators/val
 import { Textarea } from "../../common/FormControls/FormControls";
 import styles from "./Profile.module.scss";
 import { ProfileStatus } from "./ProfileStatus";
-{/*import userPhoto from "../../../common/img/users.jpg";*/}
+import { Preloader } from "../../common/Preloader/Preloader";
 
 let maxLength10 = maxLenghtCreator(10);
 
@@ -25,19 +25,21 @@ let AddNewPostForm = (props) => {
 let AddNewPostReduxForm = reduxForm({form: "addNewPost"})(AddNewPostForm);
 
 export const Profile = React.memo((props) => {
+    if(!props.profile) {
+        return <Preloader />
+    }
     let addPost = (values) => {
         props.addPost(values.newMessageBody);
     };
-    {/* updatePhoto = (event) => {
+    let updatePhoto = (event) => {
         if(event.target.files.length) {
             props.updateProfilePhoto(event.target.files[0])
-    
         }
-    }*/}
+    }
     return (
         
         <div className={styles.profile}>
-            {/*<div><img src={props.photo || userPhoto} alt={"user ava"} /><input type={"file"} onChange={updatePhoto} /></div>*/}
+            <div><img src={props.profile.photos.large} alt={"user ava"} /><input type={"file"} onChange={updatePhoto} /></div>
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
             <div>avatar + description</div>
             <div>
