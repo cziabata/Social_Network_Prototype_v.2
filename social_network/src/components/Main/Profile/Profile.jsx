@@ -41,7 +41,7 @@ export const Profile = React.memo((props) => {
         <div className={styles.profile}>
             <div><img src={props.profile.photos.large} alt={"user ava"} /><input type={"file"} onChange={updatePhoto} /></div>
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-            <div>avatar + description</div>
+            <ProfileData profile={props.profile} />
             <div>
                 <AddNewPostReduxForm onSubmit={addPost}/>
             </div>
@@ -51,3 +51,21 @@ export const Profile = React.memo((props) => {
         </div>
     )
 })
+
+let ProfileData = (profile) => {
+    return (
+        <div>
+        <div><b>lookingForAJob</b>: {profile.profile.lookingForAJob ? "yes" : "no"}</div>
+        <div><b>lookingForAJobDescription</b>: {profile.profile.lookingForAJobDescription ? "yes" : "no"}</div>
+        <div><b>fullName</b>: {profile.profile.fullName ? profile.profile.fullName : "no"}</div>
+        <div><b>Contacts</b>: {Object.keys(profile.profile.contacts).map(keys => {
+            return <Contacts key={keys} contactTitle={keys} contactValue={profile.profile.contacts[keys]} />
+        })}</div>
+        </div>
+    )
+}
+
+let Contacts = ({contactTitle, contactValue}) => {
+    return <div className={styles.contactItem}><b>{contactTitle}</b>: {contactValue}</div>
+}
+    
