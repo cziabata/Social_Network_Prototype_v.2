@@ -1,4 +1,4 @@
 # Changing in this commit:
 
-## show user data incomimng from server 
+## add redux-form to edite user information
 
