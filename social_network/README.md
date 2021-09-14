@@ -1,4 +1,4 @@
 # Changing in this commit:
 
-## add redux-form to edite user information
+## add work flow to edit user information and put it to server
 

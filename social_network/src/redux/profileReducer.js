@@ -71,9 +71,12 @@ export const chooseProfile = (userId) => async (dispatch) => {
     let response = await usersAPI.getUserProfile(userId);
     dispatch(setProfile(response.data))
 }
-export const saveProfile = (data) => async (dispatch) => {
-    debugger
-    await profileAPI.saveProfile(data);
+export const saveProfile = (profile) => async (dispatch, getState) => {
+    let userId = getState().authReducer.id;
+    let response = await profileAPI.saveProfile(profile);
+    if(response.data.resultCode === 0) {
+        dispatch(chooseProfile(userId))
+    }
 }
 
 export default profileReducer;

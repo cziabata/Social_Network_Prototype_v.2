@@ -31,22 +31,22 @@ let ProfileDataForm = (props) => {
         <form onSubmit={handleSubmit}>
             <div>
             <div><b>Full name</b>:  <Field placeholder={"Full name"} 
-                       name={"FullName"} 
+                       name={"fullName"} 
                        component={Input} />
             </div>
             <b>Looking for a job</b>:  <Field placeholder={"Are you looking for a job?"} 
-                       name={"LookingForAJob"} 
+                       name={"lookingForAJob"} 
                        component="input" 
                        type="checkbox" />
             </div>
             <div>
             <b>My professional skills</b>:  <Field placeholder={"Enter your skills"} 
-                       name={"LookingForAJobDescription"} 
+                       name={"lookingForAJobDescription"} 
                        component={Textarea} />
             </div>
             <div>
             <b>About me</b>:  <Field placeholder={"About me"} 
-                       name={"AboutMe"} 
+                       name={"aboutMe"} 
                        component={Textarea} />
             </div>
             {props.error && <div className={classes.commonError}>{props.error}</div>}
@@ -60,7 +60,7 @@ let ProfileData = (props) => {
     return (
         <div>
             <div><button onClick={props.setEditeMode}>Edit...</button></div>
-            <div><b>Looking for a job</b>: {props.profile.lookingForAJobDescription ? props.profile.lookingForAJobDescription : "no"}</div>
+            <div><b>Looking for a job</b>: {props.profile.lookingForAJob ? "yes" : "no"}</div>
             <div><b>lookingForAJobDescription</b>: {props.profile.lookingForAJobDescription ? props.profile.lookingForAJobDescription : "no"}</div>
             <div><b>fullName</b>: {props.profile.fullName ? props.profile.fullName : "no"}</div>
             <div><b>Contacts</b>: {Object.keys(props.profile.contacts).map(keys => {
@@ -83,7 +83,8 @@ export const Profile = React.memo((props) => {
         props.addPost(values.newMessageBody);
     };
     let saveProfileData = (values) => {
-        props.saveProfile(values)
+        props.saveProfile(values);
+        setEditeMode(false)
     }
     let updatePhoto = (event) => {
         if(event.target.files.length) {
@@ -94,7 +95,7 @@ export const Profile = React.memo((props) => {
         <div className={styles.profile}>
             <div><img src={props.profile.photos.large} alt={"user ava"} /><input type={"file"} onChange={updatePhoto} /></div>
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-            {editeMode ? <ProfileDataReduxForm onSubmit={saveProfileData} /> : <ProfileData profile={props.profile} setEditeMode={ () => {setEditeMode(true)}} />}
+            {editeMode ? <ProfileDataReduxForm initialValues={props.profile} onSubmit={saveProfileData} /> : <ProfileData profile={props.profile} setEditeMode={ () => {setEditeMode(true)}} />}
             <div>
                 <AddNewPostReduxForm onSubmit={addPost}/>
             </div>
