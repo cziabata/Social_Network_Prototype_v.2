@@ -15,7 +15,7 @@ export const Paginator = (props) => {
         <div className={styles.paginationWrapper}>
             { portionNumber > 1 && <button onClick={ () => {setPortionNumber(portionNumber-1)}}>{"< Prev"}</button>}
             { pages.filter(page => page >= leftPortionBorder && page <= rightPortionBorder).map( 
-                           page => <span className={props.currentPage === page && styles.currentPage} 
+                           page => <span key={page} className={props.currentPage === page && styles.currentPage} 
                                          onClick={ () => {props.onPageChanged(page)} }>{page}</span> ) }
             { portionCount > portionNumber && <button onClick={ () => {setPortionNumber(portionNumber+1)}}>{"Next >"}</button>}
         </div>

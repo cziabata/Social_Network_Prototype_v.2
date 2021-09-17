@@ -49,6 +49,10 @@ let ProfileDataForm = (props) => {
                        name={"aboutMe"} 
                        component={Textarea} />
             </div>
+            <div>
+                <b>Contacts:</b> {Object.keys(props.profile.contacts).map(key => 
+                    {return <div key={key}><b>{key}:<Field placeholder={key}  name={`contacts.` + key} component={Input}/></b></div>})}
+            </div>
             {props.error && <div className={classes.commonError}>{props.error}</div>}
             <button type="submit">Submit</button>
         </form>
@@ -83,8 +87,7 @@ export const Profile = React.memo((props) => {
         props.addPost(values.newMessageBody);
     };
     let saveProfileData = (values) => {
-        props.saveProfile(values);
-        setEditeMode(false)
+        props.saveProfile(values).then(()=>setEditeMode(false))
     }
     let updatePhoto = (event) => {
         if(event.target.files.length) {
@@ -95,7 +98,8 @@ export const Profile = React.memo((props) => {
         <div className={styles.profile}>
             <div><img src={props.profile.photos.large} alt={"user ava"} /><input type={"file"} onChange={updatePhoto} /></div>
             <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-            {editeMode ? <ProfileDataReduxForm initialValues={props.profile} onSubmit={saveProfileData} /> : <ProfileData profile={props.profile} setEditeMode={ () => {setEditeMode(true)}} />}
+            {editeMode ? <ProfileDataReduxForm initialValues={props.profile} onSubmit={saveProfileData} profile={props.profile}/> 
+                       : <ProfileData profile={props.profile} setEditeMode={ () => {setEditeMode(true)}} />}
             <div>
                 <AddNewPostReduxForm onSubmit={addPost}/>
             </div>

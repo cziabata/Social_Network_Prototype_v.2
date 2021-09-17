@@ -18,7 +18,7 @@ export class UsersContainer extends React.Component {
     }
     render() {
         let usersElements = this.props.users.map( user => (
-            <div>
+            <div key={user.id}>
                 <div>
                     <NavLink to={"/profile/" + user.id}>
                         <img src={user.photos.small != null ? user.photos.small : userIcon} alt="avatar" className={styles.user_avatar}/>

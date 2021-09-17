@@ -8,13 +8,11 @@ import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 
   ReactDOM.render(
-  <React.StrictMode>
     <HashRouter>
       <Provider store={store}>
         <App />
       </Provider>
-    </HashRouter>
-  </React.StrictMode>,
+    </HashRouter>,
   document.getElementById("root")
 )
 
