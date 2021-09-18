@@ -9,7 +9,7 @@ import classes from "../common/FormControls/FormControls.module.css";
 
 let maxLegth30 = maxLenghtCreator(30);
 let LoginForm = props => {
-    const { handleSubmit } = props
+    const { handleSubmit } = props;
     return <form onSubmit={handleSubmit}>
         <div>
             <Field  placeholder="Email" name="email" validate={[required, maxLegth30]} component={Input} />
@@ -20,6 +20,8 @@ let LoginForm = props => {
         <div>
             <Field name="rememberMe" component="input" type="checkbox" />
         </div>
+        {props.captchaUrl && <img src={props.captchaUrl} alt={"captcha"} />}
+        {props.captchaUrl && <Field placeholder="Enter anti-bot symbols" name="captcha" validate={[required]} component={Input}/>}
         {props.error && <div className={classes.commonError}>{props.error}</div>}
         <button type="submit">Submit</button>
     </form>
@@ -29,7 +31,7 @@ let LoginForm = props => {
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        props.login(formData.email, formData.password, formData.rememberMe)
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha)
     }
     if(props.isAuth) {
         return <Redirect to="/profile" />
@@ -37,13 +39,14 @@ const Login = (props) => {
     return (
         <>
             <h1>LOGIN</h1>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
         </>
     )      
 }
 
 let mapStateToProps = (state) => ({
-    isAuth: state.authReducer.isAuth
+    isAuth: state.authReducer.isAuth,
+    captchaUrl: state.authReducer.captchaUrl
 })
 
 export default connect(mapStateToProps, {login})(Login)

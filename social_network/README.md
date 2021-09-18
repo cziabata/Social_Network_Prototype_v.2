@@ -1,4 +1,4 @@
 # Changing in this commit:
 
-## add redux form with validation for editing user contacts
+## add captcha workflow if number of attempts to login is more than 4
 
