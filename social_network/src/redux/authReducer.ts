@@ -12,7 +12,15 @@ let initialState = {
   captchaUrl: null
 };
 
-let authReducer = (state = initialState, action) => {
+export type InitialStateType = {
+  email: null | string,
+  id: null | number,
+  login: null | string,
+  isAuth: boolean,
+  captchaUrl: null | string
+}
+
+let authReducer = (state = initialState, action:any):InitialStateType => {
   switch (action.type) {
     case SET_AUTH_DATA:
       return {
@@ -29,20 +37,35 @@ let authReducer = (state = initialState, action) => {
   }
 };
 
-export const setAuthData = (email, id, login, isAuth) => ({
+type UserDataType = {
+  email:string | null, 
+  id:number | null, 
+  login:string | null, 
+  isAuth:boolean | null
+}
+type SetAuthDataType = {
+  type: typeof SET_AUTH_DATA,
+  data: UserDataType
+}
+export const setAuthData = (email:string | null, id:number | null, login:string | null, isAuth:boolean):SetAuthDataType => ({
   type: SET_AUTH_DATA,
   data: { email, id, login, isAuth },
 });
-const setCaptchaUrl = (captchaUrl) => ({type: SET_CAPTCHA_URL, captchaUrl})
 
-export const getAuthData = () => async (dispatch) => {
+type SetCaptchaUrlType = {
+  type: typeof SET_CAPTCHA_URL,
+  captchaUrl: string,
+}
+const setCaptchaUrl = (captchaUrl:string):SetCaptchaUrlType => ({type: SET_CAPTCHA_URL, captchaUrl})
+
+export const getAuthData = () => async (dispatch:any) => {
   let response = await authAPI.me();
   let { email, id, login } = response.data.data;
   if (response.data.resultCode === 0) {
     dispatch(setAuthData(email, id, login, true));
   }
 };
-export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
+export const login = (email:string, password:string, rememberMe:boolean, captcha:string) => async (dispatch:any) => {
   let response = await authAPI.login(email, password, rememberMe, captcha);
   if (response.data.resultCode === 0) {
     dispatch(getAuthData());
@@ -54,13 +77,13 @@ export const login = (email, password, rememberMe, captcha) => async (dispatch) 
     dispatch(stopSubmit("login", { _error: message }));
   }
 };
-export const logout = () => async (dispatch) => {
+export const logout = () => async (dispatch:any) => {
   let response = await authAPI.logout();
   if (response.data.resultCode === 0) {
     dispatch(setAuthData(null, null, null, false));
   }
 };
-export const getCaptchaUrl = () => async (dispatch) => {
+export const getCaptchaUrl = () => async (dispatch:any) => {
   let response = await securityAPI.getCaptchaUrl();
   let captchaUrl = response.data.url;
   dispatch(setCaptchaUrl(captchaUrl))
