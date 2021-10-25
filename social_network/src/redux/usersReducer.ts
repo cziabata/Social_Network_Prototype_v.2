@@ -1,5 +1,5 @@
 import { ProfileType } from './profileReducer';
-import { PhotosType } from './../types/types';
+import { UserItemType } from './../types/types';
 import { usersAPI } from "../api/api";
 
 const FOLLOW = "FOLLOW";
@@ -11,13 +11,7 @@ const SET_TOGGLE_IS_FETCHING = "SET_TOGGLE_IS_FETCHING";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_IS_FOLLOWING_PROGRESS = "SET_IS_FOLLOWING_PROGRESS";
 
-type UserItemType = {
-    id: number,
-    name: string,
-    status: string,
-    photos: PhotosType,
-    followed: boolean
-}
+
 let initialState = {
     users: [] as Array<UserItemType>,
     totalUsersCount: 0,
