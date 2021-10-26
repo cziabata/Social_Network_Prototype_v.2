@@ -7,24 +7,17 @@ import userIcon from "./../../../common/img/users.jpg";
 import { NavLink } from "react-router-dom";
 import { getTotalUsersCount, getAllUsers, getPageSize, getCurrentPage, getIsFetching, getIsFollowingProgress,
          getPortionSize } from "../../../redux/selectors/users-selectors";
-import { UserItemType } from "../../../types/types";
 
-type PropsType = {
-    pageSize: number,
-    currentPage: number,
-    getUsers:(pageSize: number, currentPage:number)=>void,
-    onPageChanged: (pageSize: number, pageNumber:number)=>void
-}
-export class UsersContainer extends React.Component<PropsType> {
+export class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.getUsers(this.props.pageSize, this.props.currentPage);
     }
-    onPageChanged = (pageNumber:number) => {
+    onPageChanged = (pageNumber) => {
         this.props.onPageChanged(this.props.pageSize, pageNumber);
     }
     render() {
-        let usersElements:Array<UserItemType> = this.props.users.map( user => (
+        let usersElements = this.props.users.map( user => (
             <div key={user.id}>
                 <div>
                     <NavLink to={"/profile/" + user.id}>
