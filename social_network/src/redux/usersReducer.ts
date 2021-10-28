@@ -1,6 +1,9 @@
 import { ProfileType } from './profileReducer';
 import { UserItemType } from './../types/types';
 import { usersAPI } from "../api/api";
+import { ThunkAction } from 'redux-thunk';
+import { AppStateType } from './store';
+import { Action } from 'redux';
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -23,7 +26,9 @@ let initialState = {
     isFollowingProgress: [] as Array<number>, // array of users ids
 }
 type InitialStateType = typeof initialState
- let usersReducer = (state = initialState, action:any):InitialStateType => {
+type ActionsType = FollowType | UnfollowType | SetUsersType | SetCurrentPageType | SetTotalUsersCountType | SetIsFetchingType |
+                   SetUserProfileType | SetFollowingProgressType
+let usersReducer = (state = initialState, action:ActionsType):InitialStateType => {
     switch(action.type) {
         case FOLLOW:
             return {
@@ -68,6 +73,7 @@ type InitialStateType = typeof initialState
         case SET_USER_PROFILE:
             return {
                 ...state,
+                //@ts-ignore
                 userProfile: action.userProfile
             }
         case SET_IS_FOLLOWING_PROGRESS:
@@ -121,17 +127,18 @@ type SetFollowingProgressType = {
     isFetching: boolean, 
     userId: number
 }
-export const setFollowingProgress = (isFetching:boolean, userId:number):SetFollowingProgressType => ({type: SET_IS_FOLLOWING_PROGRESS, isFetching, userId});
+export const setFollowingProgress = (isFetching:boolean, userId:number):SetFollowingProgressType =>
+                                    ({type: SET_IS_FOLLOWING_PROGRESS, isFetching, userId});
 
-
-export const getUsers = (pageSize:number, currentPage:number) => async (dispatch:any) => {
+type ThunkActionCreatorType = ThunkAction<Promise<void>, AppStateType, unknown, Action<string>>
+export const getUsers = (pageSize:number, currentPage:number):ThunkActionCreatorType => async (dispatch:any) => {
        dispatch(setIsFetching(true));
         let data = await usersAPI.getUsers(pageSize, currentPage)
                 dispatch(setIsFetching(false));
                 dispatch(setUsers(data.items));
                 dispatch(setTotalUsersCount(data.totalCount));
 }
-export const onPageChanged = (pageSize:number, pageNumber:number) => async (dispatch:any) => {
+export const onPageChanged = (pageSize:number, pageNumber:number):ThunkActionCreatorType => async (dispatch:any) => {
         dispatch(setIsFetching(true));
         dispatch(setCurrentPage(pageNumber));
         let data = await usersAPI.getUsers(pageSize, pageNumber);
@@ -139,7 +146,7 @@ export const onPageChanged = (pageSize:number, pageNumber:number) => async (disp
         dispatch(setUsers(data.items));
         dispatch(setTotalUsersCount(data.totalCount));
 }
-export const unfollowUser = (userId:number) => async (dispatch:any) => {
+export const unfollowUser = (userId:number):ThunkActionCreatorType => async (dispatch:any) => {
         dispatch(setFollowingProgress(true, userId));
         let response = await usersAPI.unfollow(userId)
         if(response.data.resultCode === 0) {
@@ -147,7 +154,7 @@ export const unfollowUser = (userId:number) => async (dispatch:any) => {
         }
         dispatch(setFollowingProgress(false, userId));
 }
-export const followUser = (userId:number) => async (dispatch:any) => {
+export const followUser = (userId:number):ThunkActionCreatorType => async (dispatch:any) => {
         dispatch(setFollowingProgress(true, userId));
         let response = await usersAPI.follow(userId);
         if(response.data.resultCode === 0) {
@@ -155,7 +162,7 @@ export const followUser = (userId:number) => async (dispatch:any) => {
         }
         dispatch(setFollowingProgress(false, userId));
 }
-export const chooseUserProfile = (userId:number) => async (dispatch:any) => {
+export const chooseUserProfile = (userId:number):ThunkActionCreatorType => async (dispatch:any) => {
         dispatch(setIsFetching(true));
         let response = await usersAPI.getUserProfile(userId);
         dispatch(setIsFetching(false));
