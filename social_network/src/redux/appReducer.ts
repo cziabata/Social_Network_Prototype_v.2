@@ -1,11 +1,9 @@
 import { getAuthData } from "./authReducer";
 
-const SET_INITIALIZED_SUCCESS = "SET_INITIALIZED_SUCCESS";
+const SET_INITIALIZED_SUCCESS = "appReducer/SET_INITIALIZED_SUCCESS";
 
-export type InitialStateType = {
-    initialized: boolean
-}
-let initialState: InitialStateType = {
+export type InitialStateType = typeof initialState
+let initialState = {
     initialized: false
 }
 

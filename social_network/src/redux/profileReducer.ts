@@ -1,5 +1,6 @@
+import { profileAPI } from './../api/profileAPI';
+import { usersAPI } from './../api/usersAPI';
 import { PhotosType } from './../types/types';
-import { profileAPI, usersAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 
 const ADD_POST = "ADD_POST";
@@ -102,24 +103,24 @@ type SetProfilePhotoActionType = {
 const setProfilePhoto = (photos:PhotosType):SetProfilePhotoActionType => ({type: SET_PROFILE_PHOTOS, photos})
 
 export const getStatus = (userId:number) => async (dispatch:any) => {
-    let response = await profileAPI.getStatus(userId); 
-    dispatch(setStatus(response.data));
+    let data = await profileAPI.getStatus(userId); 
+    dispatch(setStatus(data));
 }
 export const updateStatus = (status:string) => async (dispatch:any) => {
-    let response = await profileAPI.updateStatus(status);
-    if(response.data.resultCode === 0) {
+    let data = await profileAPI.updateStatus(status);
+    if(data.resultCode === 0) {
         dispatch(setStatus(status))
     }
 }
 export const updateProfilePhoto = (photo:any) => async (dispatch:any) => {
-    let response = await profileAPI.updatePhoto(photo);
-    if(response.data.resultCode === 0) {
-        dispatch(setProfilePhoto(response.data.data.photos))
+    let data = await profileAPI.updatePhoto(photo);
+    if(data.resultCode === 0) {
+        dispatch(setProfilePhoto(data.data))
     }
 }
 export const chooseProfile = (userId:number) => async (dispatch:any) => {
-    let response = await usersAPI.getUserProfile(userId);
-    dispatch(setProfile(response.data))
+    let data = await usersAPI.getUserProfile(userId);
+    dispatch(setProfile(data))
 }
 export const saveProfile = (profile:ProfileType) => async (dispatch:any, getState:any) => {
     let userId = getState().authReducer.id;
