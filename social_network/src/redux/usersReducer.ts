@@ -1,9 +1,7 @@
 import { usersAPI } from './../api/usersAPI';
 import { ProfileType } from './profileReducer';
 import { UserItemType } from './../types/types';
-import { ThunkAction } from 'redux-thunk';
-import { AppStateType, InferActionTypes } from './store';
-import { Action } from 'redux';
+import { BaseThunkType, InferActionTypes } from './store';
 
 let initialState = {
     users: [] as Array<UserItemType>,
@@ -17,6 +15,7 @@ let initialState = {
 }
 type InitialStateType = typeof initialState
 type ActionsType = InferActionTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsType>
 
 let usersReducer = (state = initialState, action:ActionsType):InitialStateType => {
     switch(action.type) {
@@ -88,16 +87,14 @@ let actions = {
     setFollowingProgress: (isFetching:boolean, userId:number) => ({type: "SET_IS_FOLLOWING_PROGRESS", isFetching, userId} as const),
 }
 
-
-type ThunkActionCreatorType = ThunkAction<Promise<void>, AppStateType, unknown, Action<string>>
-export const getUsers = (pageSize:number, currentPage:number):ThunkActionCreatorType => async (dispatch:any) => {
+export const getUsers = (pageSize:number, currentPage:number):ThunkType => async (dispatch) => {
        dispatch(actions.setIsFetching(true));
         let data = await usersAPI.getUsers(pageSize, currentPage)
                 dispatch(actions.setIsFetching(false));
                 dispatch(actions.setUsers(data.items));
                 dispatch(actions.setTotalUsersCount(data.totalCount));
 }
-export const onPageChanged = (pageSize:number, pageNumber:number):ThunkActionCreatorType => async (dispatch:any) => {
+export const onPageChanged = (pageSize:number, pageNumber:number):ThunkType => async (dispatch) => {
         dispatch(actions.setIsFetching(true));
         dispatch(actions.setCurrentPage(pageNumber));
         let data = await usersAPI.getUsers(pageSize, pageNumber);
@@ -105,7 +102,7 @@ export const onPageChanged = (pageSize:number, pageNumber:number):ThunkActionCre
         dispatch(actions.setUsers(data.items));
         dispatch(actions.setTotalUsersCount(data.totalCount));
 }
-export const unfollowUser = (userId:number):ThunkActionCreatorType => async (dispatch:any) => {
+export const unfollowUser = (userId:number):ThunkType => async (dispatch) => {
         dispatch(actions.setFollowingProgress(true, userId));
         let data = await usersAPI.unfollow(userId)
         if(data.resultCode === 0) {
@@ -113,7 +110,7 @@ export const unfollowUser = (userId:number):ThunkActionCreatorType => async (dis
         }
         dispatch(actions.setFollowingProgress(false, userId));
 }
-export const followUser = (userId:number):ThunkActionCreatorType => async (dispatch:any) => {
+export const followUser = (userId:number):ThunkType => async (dispatch) => {
         dispatch(actions.setFollowingProgress(true, userId));
         let data = await usersAPI.follow(userId);
         if(data.resultCode === 0) {
@@ -121,7 +118,7 @@ export const followUser = (userId:number):ThunkActionCreatorType => async (dispa
         }
         dispatch(actions.setFollowingProgress(false, userId));
 }
-export const chooseUserProfile = (userId:number):ThunkActionCreatorType => async (dispatch:any) => {
+export const chooseUserProfile = (userId:number):ThunkType => async (dispatch) => {
         dispatch(actions.setIsFetching(true));
         let data = await usersAPI.getUserProfile(userId);
         dispatch(actions.setIsFetching(false));

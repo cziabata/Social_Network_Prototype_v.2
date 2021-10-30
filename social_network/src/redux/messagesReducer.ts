@@ -1,4 +1,4 @@
-const ADD_MESSAGE = "ADD_MESSAGE";
+import { InferActionTypes } from "./store";
 
 type MessagesItemType = {
   id: number,
@@ -16,10 +16,14 @@ let initialState = {
 };
 
 export type InitialStateType = typeof initialState;
+export const actions = {
+  addMessageAC: (newMessage:string) => ({type: "ADD_MESSAGE", newMessage} as const)
+}
+type ActionType = InferActionTypes<typeof actions>
 
-let messagesReducer = (state = initialState, action:any):InitialStateType => {
+let messagesReducer = (state = initialState, action:ActionType):InitialStateType => {
         switch(action.type) {
-            case ADD_MESSAGE:
+            case "ADD_MESSAGE":
                 return {
                     ...state,
                     messages: [...state.messages, {id: 5, userName: "USER 555", messageText:action.newMessage}],
@@ -28,12 +32,4 @@ let messagesReducer = (state = initialState, action:any):InitialStateType => {
                 return state
         }
 }
-
-type AddMessageActionType = {
-  type: typeof ADD_MESSAGE,
-  newMessage: string,
-}
-
-export const addMessageAC = (newMessage:string):AddMessageActionType => ({type: ADD_MESSAGE, newMessage});
-
 export default messagesReducer;

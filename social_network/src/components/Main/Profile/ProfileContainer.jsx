@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Profile } from "./Profile";
-import { addPost, getStatus, updateStatus, chooseProfile, updateProfilePhoto, saveProfile } from "../../../redux/profileReducer";
+import { actions, getStatus, updateStatus, chooseProfile, updateProfilePhoto, saveProfile } from "../../../redux/profileReducer";
 import { Post } from "./Posts/Posts";
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import { compose } from "redux";
@@ -37,6 +37,7 @@ class ProfileContainer extends React.Component {
         )
     }
 }
+let addPost = actions.addPost
 
 export default compose(connect(mapStateToProps, {addPost, getStatus, updateStatus, chooseProfile, updateProfilePhoto, saveProfile}
     ),withAuthRedirect)(ProfileContainer);
