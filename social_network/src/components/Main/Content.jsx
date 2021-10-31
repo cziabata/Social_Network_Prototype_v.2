@@ -8,7 +8,7 @@ import Login from "../Login/Login";
 const MessagesContainer = React.lazy(() => import('./Messages/MessagesContainer'));
 
 
-export const Content = () => {
+export const Main = () => {
     
     return(
         <main className={styles.content}>
