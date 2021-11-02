@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.module.scss";
-import HeaderContainer from "./components/Header/HeaderContainer";
 import { Main } from "./components/Main/Content";
 import { Navbar } from "./components/Navbar/Navbar";
 import { AppFooter } from "./components/Footer/Footer";
@@ -11,7 +10,7 @@ import { connect } from "react-redux";
 import { initializeApp } from "./redux/appReducer";
 import { Preloader } from "./components/common/Preloader/Preloader";
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Row, Col, Avatar } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import ProfileContainer from "../src/components/Main/Profile/ProfileContainer";
 import UserProfileContainer from "../src/components/Main/Users/UserProfile/UserProfileContainer";
@@ -20,10 +19,9 @@ import Login from "../src/components/Login/Login";
 import { Route } from "react-router-dom";
 import MessagesContainer from "./components/Main/Messages/MessagesContainer";
 import { NavLink } from "react-router-dom";
-import Icon from '@material-ui/core/Icon';
-import stylesNav from "../src/components/Navbar/Navbar.module.scss";
+import { AppHeader } from "./components/Header/Header";
 const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 class App extends React.Component {
   componentDidMount() {
@@ -35,14 +33,7 @@ class App extends React.Component {
     }
     return (
       <Layout>
-      <Header className="header">
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
-        </Menu>
-      </Header>
+      <AppHeader />
       <Content style={{ padding: '0 50px' }}>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -58,12 +49,16 @@ class App extends React.Component {
               style={{ height: '100%' }}
             >
               <SubMenu key="sub1" icon={<UserOutlined />} title="My Profile">
-                <Menu.Item key="1"> <NavLink to="/profile">
-                <div className={styles.link_wrapper}><Icon>account_circle</Icon><span>Profile</span></div>
-            </NavLink></Menu.Item>
-                <Menu.Item key="2"><NavLink to="/messages">
-                <div className={styles.link_wrapper}><Icon>question_answer</Icon><span>Messages</span></div>
-            </NavLink></Menu.Item>
+                <Menu.Item key="1">
+                  <NavLink to="/profile">
+                    <div className={styles.link_wrapper}><span>Profile</span></div>
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item key="2">
+                  <NavLink to="/messages">
+                    <div className={styles.link_wrapper}><span>Messages</span></div>
+                  </NavLink>
+                </Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
                 <Menu.Item key="4">option4</Menu.Item>
               </SubMenu>
