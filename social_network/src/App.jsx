@@ -20,6 +20,9 @@ import { Route } from "react-router-dom";
 import MessagesContainer from "./components/Main/Messages/MessagesContainer";
 import { NavLink } from "react-router-dom";
 import { AppHeader } from "./components/Header/Header";
+import ChatPage from "./components/Chat/Chat";
+
+
 const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
 
@@ -59,8 +62,16 @@ class App extends React.Component {
                     <div className={styles.link_wrapper}><span>Messages</span></div>
                   </NavLink>
                 </Menu.Item>
-                <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
+                <Menu.Item key="3">
+                  <NavLink to="/users">
+                    <div className={styles.link_wrapper}><span>Users</span></div>
+                  </NavLink>
+                </Menu.Item>
+                <Menu.Item key="4">
+                  <NavLink to="/chat">
+                    <div className={styles.link_wrapper}><span>Chat</span></div>
+                  </NavLink>
+                </Menu.Item>
               </SubMenu>
               <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
                 <Menu.Item key="5">option5</Menu.Item>
@@ -82,6 +93,7 @@ class App extends React.Component {
             <Route render={ () => <UsersContainer /> } path="/users"/>
             <Route render={ () => <MessagesContainer />} path="/messages"/>
             <Route render={ () => <Login /> } path="/login"/>
+            <Route render={ () => <ChatPage /> } path="/chat"/>
           </Content>
         </Layout>
       </Content>

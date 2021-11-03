@@ -17,7 +17,7 @@ export const AppHeader = (props) => {
     const logoutCallback = () => {
       dispatch(logout())
     }
-
+    debugger
     return (
         <Header className="header">
         <div className="logo" />
@@ -32,7 +32,7 @@ export const AppHeader = (props) => {
           <Col>
           { isAuth ? <div>
                         <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-                        <span>{login}</span><Button onClick={dispatch(logoutCallback)}>Logout</Button>
+                        <span>{login}</span><Button onClick={logoutCallback}>Logout</Button>
                      </div> 
                    : <NavLink to="/login">Login</NavLink>}
           </Col>
