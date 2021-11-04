@@ -17,7 +17,6 @@ export const AppHeader = (props) => {
     const logoutCallback = () => {
       dispatch(logout())
     }
-    debugger
     return (
         <Header className="header">
         <div className="logo" />
