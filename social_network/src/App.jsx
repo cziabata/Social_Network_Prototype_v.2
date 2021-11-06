@@ -1,8 +1,5 @@
 import React from "react";
 import "./App.module.scss";
-import { Main } from "./components/Main/Content";
-import { Navbar } from "./components/Navbar/Navbar";
-import { AppFooter } from "./components/Footer/Footer";
 import styles from "./App.module.scss";
 import { compose } from "redux";
 import { withRouter } from "react-router-dom";
@@ -10,7 +7,7 @@ import { connect } from "react-redux";
 import { initializeApp } from "./redux/appReducer";
 import { Preloader } from "./components/common/Preloader/Preloader";
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb, Row, Col, Avatar } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import ProfileContainer from "../src/components/Main/Profile/ProfileContainer";
 import UserProfileContainer from "../src/components/Main/Users/UserProfile/UserProfileContainer";
@@ -21,7 +18,6 @@ import MessagesContainer from "./components/Main/Messages/MessagesContainer";
 import { NavLink } from "react-router-dom";
 import { AppHeader } from "./components/Header/Header";
 import ChatPage from "./components/Chat/Chat";
-
 
 const { SubMenu } = Menu;
 const { Content, Footer, Sider } = Layout;
@@ -99,13 +95,6 @@ class App extends React.Component {
       </Content>
       <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
     </Layout>
-  
-      /*<div className={styles.app}>
-        <HeaderContainer />
-        <Main />
-        <Navbar />
-        <AppFooter />
-      </div>*/
     );
   }
 }
